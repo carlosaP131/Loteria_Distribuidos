@@ -4,10 +4,27 @@
  */
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import model.Carta;
+
 /**
  *
  * @author labinfo04
  */
 public class CartaController {
-    
+    private List<Carta> cartas;
+
+    public CartaController() {
+        this.cartas = new ArrayList<>();
+    }
+
+    public void agregarCarta(Carta carta) {
+        cartas.add(carta);
+    }
+
+    public List<Carta> getCartas() {
+        return cartas;
+    }
+
 }
