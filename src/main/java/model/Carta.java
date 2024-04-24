@@ -11,7 +11,13 @@ package model;
 public class Carta {
     
     private int idCarta;
-
+    private String nombre;
+    private String rutaCarta;
+      public Carta(String nombre, String rutaCarta, int idCarta) {
+        this.nombre = nombre;
+        this.rutaCarta = rutaCarta;
+        this.idCarta= idCarta;
+    }
     public int getIdCarta() {
         return idCarta;
     }
@@ -35,8 +41,7 @@ public class Carta {
     public void setRutaCarta(String rutaCarta) {
         this.rutaCarta = rutaCarta;
     }
-    private String nombre;
-    private String rutaCarta;
+  
     
     
 }

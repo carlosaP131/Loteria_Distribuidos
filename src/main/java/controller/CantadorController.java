@@ -28,7 +28,7 @@ public class CantadorController {
             cantador.getCartasSacadas().add(carta);
             return carta;
         } else {
-            System.out.println("No hay cartas en el cantaro.");
+            System.out.println("No hay mas Cartas.");
             return null;
         }
     }

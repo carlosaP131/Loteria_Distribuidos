@@ -12,6 +12,12 @@ import model.Carta;
  * @author labinfo04
  */
 public class CartaService {
+    public Carta crearCarta(String nombre, String rutaCarta,int idCarta) {
+     
+        Carta carta = new Carta(nombre, rutaCarta, idCarta);
+        
+        return carta;
+    }
      public void agregarCarta(List<Carta> cartas, Carta carta) {
         cartas.add(carta);
     }
