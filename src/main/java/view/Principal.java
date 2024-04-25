@@ -4,17 +4,26 @@
  */
 package view;
 
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Collections;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  *
  * @author labinfo04
  */
 public class Principal extends javax.swing.JFrame {
-
+    public Integer njugadores;
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -26,22 +35,102 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jLabel1.setText("Lotería");
+
+        jLabel2.setText("Número de jugadores:");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+
+        jButton1.setText("Iniciar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(41, 41, 41)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        njugadores = Integer.valueOf(jComboBox1.getSelectedItem().toString());
+        generarPaneles(njugadores);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    private void generarPaneles(int numPaneles) {
+         // Crear y mostrar una ventana para cada jugador
+    for (int i = 0; i < numPaneles; i++) {
+        JFrame ventana = new JFrame("Jugador " + (i + 1));
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ventana.setSize(400, 400); // Tamaño de la ventana
+        ventana.setLocationRelativeTo(null); // Centrar la ventana
+        
+        // Crear un panel para la cuadrícula de imágenes
+        JPanel panel = new JPanel(new GridLayout(4, 4));
+        
+        // Crear una lista de números del 1 al 54
+        ArrayList<Integer> numeros = new ArrayList<>();
+        for (int j = 1; j <= 54; j++) {
+            numeros.add(j);
+        }
+        
+        // Barajar los números de forma aleatoria
+        Collections.shuffle(numeros);
+        
+        // Agregar imágenes a la cuadrícula
+        for (int j = 1; j < 16; j++) {
+            JLabel label = new JLabel(new ImageIcon("../img/" + numeros.get(j) + ".jpg"));
+            panel.add(label);
+        }
+        
+        // Agregar el panel a la ventana
+        ventana.add(panel);
+        
+        // Mostrar la ventana
+        ventana.setVisible(true);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -71,6 +160,7 @@ public class Principal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Principal().setVisible(true);
             }
@@ -78,5 +168,9 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
