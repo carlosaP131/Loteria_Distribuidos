@@ -10,15 +10,16 @@ import model.Carton;
  * @author labinfo07
  */
 public class CartonService {
-    private Carton cartonR;
-    
-    public CartonService(Carton cartonR){
-        this.cartonR=cartonR;
+    public void inicializarCarton(Carton carton, ArrayList<Carta> cartasDisponibles) {
+        // Logica para asignar cartas a un cartón de manera aleatoria
     }
-    
-    public void marcarNumero(Carta carta){
-        ArrayList<Carta>cartas=cartonR.getCartasEnCarton();
-        int [][] matrizMarcado=cartonR.getMatrizMarcado();
+
+    public void marcarCarta(Carton carton, Carta carta) {
+        // Marcar la carta en el cartón si está presente
     }
-    
+
+    public boolean verificarGanador(Carton carton) {
+        // Verificar si el cartón cumple con las condiciones de victoria
+        return false;
+    }
 }
