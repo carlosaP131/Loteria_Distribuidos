@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.ImageIcon;
@@ -102,17 +103,17 @@ public class Principal extends javax.swing.JFrame {
     private void generarPaneles(int numPaneles) {
 
         //System.out.println("../img/" + 1 + ".jpg");
-        JLabel jl=new JLabel(new ImageIcon("/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/1.jpg"));
+        JLabel jl=new JLabel(new ImageIcon("/home/labinfo05/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/1.jpg"));
         this.add(jl);
         // Crear y mostrar una ventana para cada jugador
         for (int i = 0; i < numPaneles; i++) {
             JFrame ventana = new JFrame("Jugador " + (i + 1));
             ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            ventana.setSize(400, 400); // Tamaño de la ventana
+            ventana.setSize(400, 650); // Tamaño de la ventana
 
             ventana.setLocation((400 * (i + 1)), 400);//ubicación de la ventana
             // Crear un panel para la cuadrícula de imágenes
-            JPanel panel = new JPanel(new GridLayout(4, 4));
+            JPanel panel = new JPanel(new GridLayout(4, 13));
 
             // Crear una lista de números del 1 al 54
             ArrayList<Integer> numeros = new ArrayList<>();
@@ -121,15 +122,29 @@ public class Principal extends javax.swing.JFrame {
             }
 
             // Barajar los números de forma aleatoria
-            Collections.shuffle(numeros);
+            //Collections.shuffle(numeros);
 
-            // Agregar imágenes a la cuadrícula
-            for (int j = 1; j < 16; j++) {
-                System.out.println("../img/" + numeros.get(j) + ".jpg");
-
-                JLabel label = new JLabel(new ImageIcon("../img/" + numeros.get(j) + ".jpg"));
+             // Agregar imágenes a la cuadrícula
+            for (int j = 1; j < 17; j++) {
+                // Obtener la imagen y escalarla al tamaño deseado
+                ImageIcon icono = new ImageIcon("/home/labinfo05/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + numeros.get(j) + ".jpg");
+                Image imagen = icono.getImage().getScaledInstance(75, 150, Image.SCALE_SMOOTH);
+            
+                // Crear un nuevo ImageIcon con la imagen escalada
+                ImageIcon imagenEscalada = new ImageIcon(imagen);
+            
+                // Crear el JLabel con la imagen escalada
+                JLabel label = new JLabel(imagenEscalada);
                 panel.add(label);
             }
+            
+            /*// Agregar imágenes a la cuadrícula
+            for (int j = 1; j < 16; j++) {
+                System.out.println("/home/labinfo05/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + numeros.get(j) + ".jpg");
+
+                JLabel label = new JLabel(new ImageIcon("/home/labinfo05/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + numeros.get(j) + ".jpg"));
+                panel.add(label);
+            }*/
 
             // Agregar el panel a la ventana
             ventana.add(panel);
