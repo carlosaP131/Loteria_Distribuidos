@@ -12,27 +12,17 @@ import model.Carta;
  * @author labinfo04
  */
 public class CartaService {
-    public Carta crearCarta(String nombre, String rutaCarta,int idCarta) {
-     
+
+    public Carta crearCarta(String nombre, String rutaCarta, int idCarta) {
+
         Carta carta = new Carta(nombre, rutaCarta, idCarta);
-        
+
         return carta;
     }
-     public void agregarCarta(List<Carta> cartas, Carta carta) {
-        cartas.add(carta);
-    }
 
-    public void eliminarCarta(List<Carta> cartas, int idCarta) {
-        cartas.removeIf(carta -> carta.getIdCarta() == idCarta);
-    }
-
-    public Carta buscarCartaPorId(List<Carta> cartas, int idCarta) {
-        for (Carta carta : cartas) {
-            if (carta.getIdCarta() == idCarta) {
-                return carta;
-            }
-        }
-        return null;
+    public void actualizarDatosCarta(Carta carta, String nuevoNombre, String nuevaRuta) {
+        carta.setNombre(nuevoNombre);
+        carta.setRutaCarta(nuevaRuta);
     }
 
 }

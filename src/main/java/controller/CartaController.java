@@ -1,30 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import model.Carta;
+import service.CartaService;
 
-/**
- *
- * @author labinfo04
- */
 public class CartaController {
-    private List<Carta> cartas;
+
+    private CartaService cartaService;
 
     public CartaController() {
-        this.cartas = new ArrayList<>();
+        this.cartaService = new CartaService();
     }
 
-    public void agregarCarta(Carta carta) {
-        cartas.add(carta);
+    // Método para crear una nueva carta
+    public Carta crearCarta(String nombre, String rutaCarta, int idCarta) {
+        return cartaService.crearCarta(nombre, rutaCarta, idCarta);
     }
 
-    public List<Carta> getCartas() {
-        return cartas;
+    // Método para actualizar los datos de una carta
+    public void actualizarDatosCarta(Carta carta, String nuevoNombre, String nuevaRuta) {
+        cartaService.actualizarDatosCarta(carta, nuevoNombre, nuevaRuta);
     }
-
 }

@@ -5,7 +5,6 @@
 package service;
 
 import java.util.ArrayList;
-import java.util.List;
 import model.Cantador;
 import model.Carta;
 
@@ -14,29 +13,35 @@ import model.Carta;
  * @author labinfo02
  */
 public class CantadorService {
-       public void agregarCarta(Cantador cantador, Carta carta) {
-        List<Carta> cartasEnCantaro = cantador.getCartasEnCantaro();
+
+    private ArrayList<Carta> cartasEnCantaro;
+    private ArrayList<Carta> cartasSacadas;
+
+    public CantadorService(ArrayList<Carta> cartasEnCantaro) {
+        this.cartasEnCantaro = cartasEnCantaro;
+        this.cartasSacadas = new ArrayList<>();
+    }
+
+    public void agregarCarta(Cantador cantador, Carta carta) {
+        cartasEnCantaro = cantador.getCartasEnCantaro();
         cartasEnCantaro.add(carta);
         cantador.setCartasEnCantaro((ArrayList<Carta>) cartasEnCantaro);
     }
 
-    public Carta sacarCarta(Cantador cantador) {
-        List<Carta> cartasEnCantaro = cantador.getCartasEnCantaro();
+    public Carta sacarCarta() {
         if (!cartasEnCantaro.isEmpty()) {
-            Carta carta = cartasEnCantaro.remove(0);
-            List<Carta> cartasSacadas = cantador.getCartasSacadas();
-            cartasSacadas.add(carta);
-            cantador.setCartasSacadas((ArrayList<Carta>) cartasSacadas);
-            cantador.setCartasEnCantaro((ArrayList<Carta>) cartasEnCantaro);
-            return carta;
+            Carta cartaSacada = cartasEnCantaro.remove(0);
+            cartasSacadas.add(cartaSacada);
+            return cartaSacada;
         } else {
-            System.out.println("No hay cartas en el cantaro.");
             return null;
         }
     }
 
-    
-    
-    
-    
+    public void reiniciarCantaro() {
+        cartasEnCantaro.addAll(cartasSacadas);
+        cartasSacadas.clear();
+        //mezclarCartas();
+    }
+
 }
