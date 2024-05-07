@@ -134,7 +134,7 @@ public class Principal extends javax.swing.JFrame {
                     // Barajar los números de forma aleatoria
                     Collections.shuffle(numeros);
                     // Obtener la imagen y escalarla al tamaño deseado
-                    ImageIcon icono = new ImageIcon("/home/labinfo05/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + numeros.get(k) + ".jpg");
+                    ImageIcon icono = new ImageIcon("/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + numeros.get(k) + ".jpg");
                     Image imagen = icono.getImage().getScaledInstance(75, 150, Image.SCALE_SMOOTH);
 
                     // Crear un nuevo ImageIcon con la imagen escalada
@@ -176,7 +176,7 @@ public class Principal extends javax.swing.JFrame {
     private void mostrarImagenAleatoria() {
         imagenes = new ArrayList<>();
         for (int j = 1; j <= 54; j++) {
-            ImageIcon icono = new ImageIcon("/home/labinfo05/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + j + ".jpg");
+            ImageIcon icono = new ImageIcon("/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + j + ".jpg");
             imagenes.add(icono);
         }
         if (imagenes != null && !imagenes.isEmpty()) {
