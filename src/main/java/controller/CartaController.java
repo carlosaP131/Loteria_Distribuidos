@@ -12,8 +12,8 @@ public class CartaController {
     }
 
     // Método para crear una nueva carta
-    public Carta crearCarta(String nombre, String rutaCarta, int idCarta) {
-        return cartaService.crearCarta(nombre, rutaCarta, idCarta);
+    public Carta crearCarta(int idCarta, String nombre, String rutaCarta,int  posX,int posY) {
+        return cartaService.crearCarta(nombre, rutaCarta, idCarta, posX, posY);
     }
 
     // Método para actualizar los datos de una carta
