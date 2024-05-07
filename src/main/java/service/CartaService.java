@@ -13,9 +13,9 @@ import model.Carta;
  */
 public class CartaService {
 
-    public Carta crearCarta(String nombre, String rutaCarta, int idCarta) {
+    public Carta crearCarta(String nombre, String rutaCarta, int idCarta, int x, int y) {
 
-        Carta carta = new Carta(nombre, rutaCarta, idCarta);
+        Carta carta = new Carta(idCarta, nombre, rutaCarta, x, y);
 
         return carta;
     }
