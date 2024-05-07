@@ -169,6 +169,7 @@ public class Principal extends javax.swing.JFrame {
 
             // Mostrar la ventana
             ventana.setVisible(true);
+            y = 0;
         }
     }
 
