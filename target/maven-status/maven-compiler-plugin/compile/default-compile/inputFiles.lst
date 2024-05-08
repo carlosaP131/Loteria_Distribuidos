@@ -1,0 +1,12 @@
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/model/Jugador.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/model/Juego.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/model/Carta.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/service/JugadorService.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/service/CartaService.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/service/CantadorService.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/controller/JugadorController.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/controller/CantadorController.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/model/Cantador.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/view/Principal.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/model/Carton.java
+/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/controller/CartaController.java

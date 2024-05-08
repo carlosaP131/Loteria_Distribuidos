@@ -1,0 +1,13 @@
+service/JugadorService.class
+model/Juego.class
+model/Carton.class
+controller/JugadorController.class
+model/Cantador.class
+model/Jugador.class
+model/Carta.class
+service/CantadorService.class
+view/Principal$1.class
+service/CartaService.class
+controller/CartaController.class
+view/Principal.class
+controller/CantadorController.class
