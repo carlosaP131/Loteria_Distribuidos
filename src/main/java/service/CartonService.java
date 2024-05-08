@@ -1,6 +1,7 @@
 package service;
 
 import model.Carton;
+import model.Carta;
 
 public class CartonService {
 
@@ -36,5 +37,9 @@ public class CartonService {
             }
         }
         return "Llena";
+    }
+    
+    public void agregarCartaAlCarton(Carton carton, Carta carta) {
+        carton.getCartasEnCarton().add(carta);
     }
 }

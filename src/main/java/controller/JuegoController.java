@@ -38,4 +38,8 @@ public class JuegoController {
     public ArrayList<Cantador> obtenerEstadoCantaro(Juego juego) {
         return juegoService.obtenerEstadoCantaro(juego);
     }
+    
+        public Jugador obtenerJugadorId(Juego juego,int id){
+            return juegoService.obtenerJugadorId(juego, id);
+        }
 }

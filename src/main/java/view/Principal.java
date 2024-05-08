@@ -1,23 +1,45 @@
 package view;
 
+import controller.CantadorController;
+import controller.CartaController;
+import controller.CartonController;
+import controller.JuegoController;
+import controller.JugadorController;
+import model.*;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import model.Carton;
+import model.Jugador;
 
 /**
  *
  * @author labinfo04
  */
 public class Principal extends javax.swing.JFrame {
+
+    private JuegoController juegoController;
+    private Juego juegoLoteria;
+    //lista de cartas para el cantador
+    private ArrayList<Carta> cartasEnCantaro;
+    private ArrayList<Jugador> listaJugadores;
+    private CantadorController cantadorController;
+    private CartonController cartonController;
+
+    private CartaController cartaController;
+    private JugadorController jugadorController;
+    
+    private Cantador cantador;
 
     public Integer njugadores, x = 0, y = 0;
     private JLabel imagenAleatoriaLabel; // Declaración del JLabel para mostrar la imagen aleatoria
@@ -27,6 +49,15 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
+        cantador=new Cantador();
+        listaJugadores=new ArrayList<>();
+        juegoController = new JuegoController();
+        juegoLoteria = juegoController.crearJuego(cantador, listaJugadores);//JUEGO PRINCIPAL
+        cartasEnCantaro = new ArrayList<>();
+        cantadorController = new CantadorController(cartasEnCantaro);
+        cartonController = new CartonController();
+        cartaController = new CartaController();
+        jugadorController = new JugadorController();
     }
 
     @SuppressWarnings("unchecked")
@@ -100,55 +131,21 @@ public class Principal extends javax.swing.JFrame {
 
         // Crear y mostrar una ventana para cada jugador
         for (int i = 0; i < numPaneles; i++) {
-            JFrame ventana = new JFrame("Jugador " + (i + 1));
+            crearJugadores(numPaneles);//CREAMOS LOS JUGADORES
+            JFrame ventana = new JFrame(juegoController.obtenerJugadorId(
+                    juegoLoteria, i).getNombre());//LE DAMOS UN NOMBRE AL FRAME PARA CARGAR LAS CARTAS
+
             ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             ventana.setSize(800, 650); // Tamaño de la ventana
 
-            ventana.setLocation((400 * (i + 1)), 400);//ubicación de la ventana
+            ventana.setLocation(100 + (800 * (i * 10)), 100);//ubicación de la ventana
             // Crear un panel para la cuadrícula de imágenes
             JPanel panel = new JPanel(new GridLayout(4, 13));
 
-            // Crear una lista de números del 1 al 54
-            ArrayList<Integer> numeros = new ArrayList<>();
-            for (int j = 1; j <= 54; j++) {
-                numeros.add(j);
-            }
-
-            // Agregar imágenes a la cuadrícula
-            for (int j = 1; j < 5; j++) {
-                for (int k = 1; k < 5; k++) {
-                    // Barajar los números de forma aleatoria
-                    Collections.shuffle(numeros);
-                    // Obtener la imagen y escalarla al tamaño deseado
-                    ImageIcon icono = new ImageIcon("/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + numeros.get(k) + ".jpg");
-                    Image imagen = icono.getImage().getScaledInstance(75, 150, Image.SCALE_SMOOTH);
-
-                    // Crear un nuevo ImageIcon con la imagen escalada
-                    ImageIcon imagenEscalada = new ImageIcon(imagen);
-
-                    // Crear el JLabel con la imagen escalada
-                    panel.setLayout(null);
-                    JLabel label = new JLabel(imagenEscalada);
-                    label.setBounds(x, y, 75, 150);
-                    panel.add(label);
-                    x = x + 75;
-                }
-                y = y + 150;
-                x = 0;
-            }
-
-            /*JButton lanza = new JButton("Lanzar carta");
-            lanza.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    mostrarImagenAleatoria();
-                }
-            });
-            panel.setLayout(null);
-            imagenAleatoriaLabel.setBounds(375, 150, 150, 300);
-            panel.add(imagenAleatoriaLabel);
-            lanza.setBounds(400, 500, 50, 30);
-            panel.add(lanza);*/
+            
+            pintarCartasEnPanel(panel, juegoController.obtenerJugadorId(
+                    juegoLoteria, i).getCarton());
+            
 
             // Agregar el panel a la ventana
             ventana.add(panel);
@@ -172,6 +169,59 @@ public class Principal extends javax.swing.JFrame {
 
             // Mostrar la imagen aleatoria en el JLabel
             imagenAleatoriaLabel.setIcon(imagenes.get(imagenActualIndex));
+        }
+    }
+
+    private void crearJugadores(int num) {
+        for (int i = 0; i < num; i++) {
+            Carton carton = crearCartonImg();
+            //AGREGAR IMAGENES AL CARTÓN
+            Jugador jugador = jugadorController.crearJugador(i + 1, "jugador" + i, carton);
+            juegoController.agregarJugador(juegoLoteria, jugador);
+        }
+    }
+
+    private Carton crearCartonImg() {
+        Carton carton = new Carton();
+        carton.setCartasEnCarton(new ArrayList<>());
+        ArrayList<Integer> idsCartas = obtenerImagenes();
+        for (int i = 0; i < idsCartas.size(); i++) {
+            Carta carta = cartaController.crearCarta(idsCartas.get(i), "ejemplo", "/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/", i * 75, i * 150);
+            cartonController.agregarCartaAlCarton(carton, carta);
+        }
+        return carton;
+    }
+
+    private ArrayList<Integer> obtenerImagenes() {
+        ArrayList<Integer> numeros = new ArrayList<>();
+        for (int j = 1; j <= 16; j++) {
+            numeros.add(j);
+        }
+        return numeros;
+    }
+
+    private void pintarCartasEnPanel(JPanel panel, Carton carton) {
+        // Obtener la lista de cartas del cartón
+        ArrayList<Carta> cartasEnCarton = carton.getCartasEnCarton();
+
+        // Iterar sobre las cartas y agregarlas al panel
+        for (Carta carta : cartasEnCarton) {
+            // Obtener la ruta de la imagen de la carta
+            String rutaImagen = carta.getRutaCarta();
+
+            // Cargar la imagen y escalarla al tamaño deseado
+            ImageIcon icono = new ImageIcon(rutaImagen+carta.getIdCarta()+".jpg");
+            Image imagen = icono.getImage().getScaledInstance(75, 150, Image.SCALE_SMOOTH);
+
+            // Crear un nuevo ImageIcon con la imagen escalada
+            ImageIcon imagenEscalada = new ImageIcon(imagen);
+
+            // Crear el JLabel con la imagen escalada y establecer su posición
+            JLabel label = new JLabel(imagenEscalada);
+            label.setBounds(carta.getPosX(), carta.getPosY(), 75, 150);
+
+            // Agregar el JLabel al panel
+            panel.add(label);
         }
     }
 

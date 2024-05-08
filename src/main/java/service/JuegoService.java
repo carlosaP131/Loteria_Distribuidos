@@ -15,6 +15,10 @@ public class JuegoService {
         juego.setJugadores(jugadores);
         return juego;
     }
+    
+    public Jugador obtenerJugadorId(Juego juego,int id){
+        return juego.getJugadores().get(id);
+    }
 
     // Método para agregar un jugador al juego
     public void agregarJugador(Juego juego, Jugador jugador) {

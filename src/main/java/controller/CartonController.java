@@ -1,9 +1,11 @@
 package controller;
 
 import model.Carton;
+import model.Carta;
 import service.CartonService;
 
 public class CartonController {
+
     private CartonService cartonService;
 
     public CartonController() {
@@ -28,5 +30,9 @@ public class CartonController {
     // Método para verificar si la matriz marcada está llena
     public String verificarMatrizLlena(Carton carton) {
         return cartonService.verificarMatrizLlena(carton);
+    }
+
+    public void agregarCartaAlCarton(Carton carton, Carta carta) {
+        cartonService.agregarCartaAlCarton(carton, carta);
     }
 }
