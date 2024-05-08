@@ -1,9 +1,14 @@
 package view;
 
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,7 +19,10 @@ import javax.swing.JPanel;
  */
 public class Principal extends javax.swing.JFrame {
 
-    public Integer njugadores;
+    public Integer njugadores, x = 0, y = 0;
+    private JLabel imagenAleatoriaLabel; // Declaración del JLabel para mostrar la imagen aleatoria
+    private ArrayList<ImageIcon> imagenes; // Lista de imágenes disponibles
+    private int imagenActualIndex; // Índice de la imagen actual
 
     public Principal() {
         initComponents();
@@ -29,7 +37,6 @@ public class Principal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,9 +53,6 @@ public class Principal extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1.jpg"))); // NOI18N
-        jLabel3.setMaximumSize(new java.awt.Dimension(50, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,24 +72,17 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
@@ -100,19 +97,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void generarPaneles(int numPaneles) {
-
-        //System.out.println("../img/" + 1 + ".jpg");
-        JLabel jl=new JLabel(new ImageIcon("/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/1.jpg"));
-        this.add(jl);
         // Crear y mostrar una ventana para cada jugador
         for (int i = 0; i < numPaneles; i++) {
             JFrame ventana = new JFrame("Jugador " + (i + 1));
             ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            ventana.setSize(400, 400); // Tamaño de la ventana
+            ventana.setSize(800, 650); // Tamaño de la ventana
 
             ventana.setLocation((400 * (i + 1)), 400);//ubicación de la ventana
             // Crear un panel para la cuadrícula de imágenes
-            JPanel panel = new JPanel(new GridLayout(4, 4));
+            JPanel panel = new JPanel(new GridLayout(4, 13));
 
             // Crear una lista de números del 1 al 54
             ArrayList<Integer> numeros = new ArrayList<>();
@@ -120,15 +113,27 @@ public class Principal extends javax.swing.JFrame {
                 numeros.add(j);
             }
 
-            // Barajar los números de forma aleatoria
-            Collections.shuffle(numeros);
-
             // Agregar imágenes a la cuadrícula
-            for (int j = 1; j < 16; j++) {
-                System.out.println("../img/" + numeros.get(j) + ".jpg");
+            for (int j = 1; j < 5; j++) {
+                for (int k = 1; k < 5; k++) {
+                    // Barajar los números de forma aleatoria
+                    Collections.shuffle(numeros);
+                    // Obtener la imagen y escalarla al tamaño deseado
+                    ImageIcon icono = new ImageIcon("/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + numeros.get(k) + ".jpg");
+                    Image imagen = icono.getImage().getScaledInstance(75, 150, Image.SCALE_SMOOTH);
 
-                JLabel label = new JLabel(new ImageIcon("../img/" + numeros.get(j) + ".jpg"));
-                panel.add(label);
+                    // Crear un nuevo ImageIcon con la imagen escalada
+                    ImageIcon imagenEscalada = new ImageIcon(imagen);
+
+                    // Crear el JLabel con la imagen escalada
+                    panel.setLayout(null);
+                    JLabel label = new JLabel(imagenEscalada);
+                    label.setBounds(x, y, 75, 150);
+                    panel.add(label);
+                    x = x + 75;
+                }
+                y = y + 150;
+                x = 0;
             }
 
             // Agregar el panel a la ventana
@@ -136,6 +141,23 @@ public class Principal extends javax.swing.JFrame {
 
             // Mostrar la ventana
             ventana.setVisible(true);
+            y = 0;
+        }
+    }
+
+    private void mostrarImagenAleatoria() {
+        imagenes = new ArrayList<>();
+        for (int j = 1; j <= 54; j++) {
+            ImageIcon icono = new ImageIcon("/home/skar/NetBeansProjects/Loteria_Distribuidos/src/main/java/img/" + j + ".jpg");
+            imagenes.add(icono);
+        }
+        if (imagenes != null && !imagenes.isEmpty()) {
+            // Obtener un índice aleatorio para seleccionar una imagen
+            Random random = new Random();
+            imagenActualIndex = random.nextInt(imagenes.size());
+
+            // Mostrar la imagen aleatoria en el JLabel
+            imagenAleatoriaLabel.setIcon(imagenes.get(imagenActualIndex));
         }
     }
 
@@ -180,6 +202,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
